@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <!-- Angular 1.6.9 -->
+    <script src="/src/js/angularjs/1.6.9/angular.min.js"></script>
+
+    <!-- Cleave Angular -->
+    <script src="/src/js/cleave.js/cleave-angular.min.js"></script>
+    <script src="/src/js/cleave.js/cleave-phone.i18n.js"></script>
+
+    <!-- App -->
+    <script type="text/javascript" src="/src/js/app.js"></script>
+
+    <!-- Other scripts -->
+    <script type="text/javascript" src="/src/js/scripts.js"></script>
+
+    <!-- Css -->
+    <link rel="stylesheet" type="text/css" href="/src/css/styles.css"/>
+  </head>
+<body>
+  Fields to fill-up are List price, Term (years), and Interest rate per annum.
+  <div ng-app="app" ng-controller="AppController">
+    <table>
+      <thead>
+        <tr>
+          <th align="left"></td>
+          <th align="left"></td>
+          <th align="left"></td>
+          <th align="left"></td>
+          <th align="left"></td>
+        </tr>
+        <tr>
+          <th colspan="4" align="right">List price:</td>
+          <th align="right"><input type="text" ng-model="amort.price" cleave="options.price" placeholder="PhP 2,000,000.00"></td>
+        </tr>
+        <tr>
+          <th colspan="4" align="right">Term (years):</td>
+          <th align="right"><input type="text" ng-model="amort.term" cleave="options.term" placeholder="10" ng-value="10"></td>
+        </tr>
+        <tr>
+          <th colspan="4" align="right">Months:</td>
+          <th align="right">{{ amort.term * 12 }}</td>
+        </tr>
+        <tr>
+          <th colspan="4" align="right">Interest rate per annum:</td>
+          <th align="right" class="rate"><input class="rate" type="text" ng-model="amort.rate" cleave="options.rate" placeholder="5.75"> %</td>
+        </tr>
+        <tr>
+          <th colspan="4" align="right">Interest rate per month (pro-rated):</td>
+          <th align="right">{{ amort.rate/12 | number: 2 }} %</td>
+        </tr>
+        <tr>
+          <th colspan="4" align="right">Monthly amortization:</td>
+          <th align="right">PhP {{ amort.price | amort: amort.term:amort.rate | number: 2 }}</td>
+        </tr>
+        <tr>
+          <th colspan="4" align="right">Gross total income:</td>
+          <th align="right">PhP {{ ((amort.price | amort: amort.term:amort.rate) * ((amort.term * 12) + 1)) | number: 2 }}</td>
+        </tr>
+        <!-- PhP 155775.12 -->
+        <!--
+        <tr>
+          <th colspan="4" align="right">Net total income:</td>
+          <th align="right">PhP {{ ((amort.price | amort: amort.term:amort.rate) * ((amort.term * 12) + 1)) - (schedule(amort.price, amort.term, amort.rate, (amort.price | amort: amort.term:amort.rate))[1][3]) | number: 2 }}</td>
+        </tr>
+        -->
+        <tr ng-if="amort.price.length > 0 && amort.term.length > 0 && amort.rate.length > 0">
+          <th rowspan="2" class="cap">Month</th>
+          <th rowspan="2" class="cap">Amortization</th>
+          <th colspan="2" class="cap" align="center cap">Payments</th>
+          <th rowspan="2" class="cap">Outstanding Balance</th>
+        </tr>
+        <tr ng-if="amort.price.length > 0 && amort.term.length > 0 && amort.rate.length > 0">
+          <th>(Interest)</th>
+          <th>(Principal)</th>
+        </tr>
+      </thead>
+      <tbody ng-if="amort.price.length > 0 && amort.term.length > 0 && amort.rate.length > 0">
+        <!-- price, rate, term, mos -->
+        <tr ng-repeat="row in schedule(amort.price, amort.term, amort.rate, (amort.price | amort: amort.term:amort.rate))" ng-if="$index > 0">
+          <td align="center">{{ row[0] }}</td>
+          <td align="right">P{{ amort.price | amort: amort.term:amort.rate | number: 2 }}</td>
+          <td align="right">P{{ row[2] | number: 2 }}</td>
+          <td align="right">P{{ row[1] | number: 2 }}</td>
+          <td align="right">P{{ row[3] | number: 2 }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+Copyright 2018 - Timothy Escopete
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+* {
+  font-family: serif;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+th, td {
+  width: 90px;
+}
+
+th:first-of-type, td:first-of-type {
+  width: 50px;
+}
+
+th:nth-of-type(2), td:nth-of-type(2) {
+  width: 92px;
+}
+
+th:last-of-type, td:last-of-type {
+  width: 110px;
+}
+
+th.rate {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  width: auto;
+}
+
+input {
+  border: 0;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  text-align: right;
+}
+
+input.rate {
+  width: 30px;
+  margin-right: 4px;
+}
+
+.cap {
+  text-transform: uppercase;
+}
