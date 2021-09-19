@@ -49,7 +49,7 @@ angular.module('app', ['cleave.js'])
       price: {
         numeral: true,
         numeralThousandsGroupStyle: 'thousand',
-        prefix: 'PhP ',
+        // prefix: 'PhP ',
         // noImmediatePrefix: true,
         rawValueTrimPrefix: true,
         numeralDecimalScale: 2,

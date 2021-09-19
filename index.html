@@ -22,49 +22,86 @@
   <div ng-app="app" ng-controller="AppController">
     <div class="overflow-x-auto">
       <div class="min-w-screen min-h-screen bg-gray-100 flex items-top justify-center bg-gray-100 font-sans overflow-hidden">
-        <div class="w-full lg:w-2/5">
+        <div class="w-full lg:w-3/5">
           <div class="bg-transparent rounded my-6">
+
+            <div class="sm:text-center lg:text-left mt-10 mb-7">
+              <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+                <span class="block xl:inline">Online amortization</span>
+                <span class="block text-indigo-600 xl:inline">calculator</span>
+              </h1>
+            </div>
 
             <table class="min-w-max w-full table-auto mb-5 bg-white border-2 border-gray-200">
               <tr class="text-gray-600 text-sm leading-normal">
-                <th class="bg-gray-100 py-3 px-6 text-right w-3/4" colspan="4">List price</th>
-                <td class="bg-gray-100 py-3 px-6 text-right w-1/4">
-                  <input type="text" ng-model="amort.price" cleave="options.price" placeholder="PhP 2,000,000.00">
+                <th class="bg-gray-100 px-6 text-right w-3/4 py-2" colspan="4">List price</th>
+                <td class="bg-gray-100 px-6 text-right w-1/4 py-2">
+                  <div class="mt-1 flex rounded-md shadow-sm">
+                    <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-white text-gray-500 text-sm">PhP</span>
+                    <input ng-model="amort.price" cleave="options.price" type="text"
+                      class="h-10 focus:outline-none focus:ring-none flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300 border border-l-0"
+                      placeholder="2,000,000.00">
+                  </div>
                 </td>
               </tr>
               <tr class="text-gray-600 text-sm leading-normal">
-                <th class="bg-gray-100 py-3 px-6 text-right w-3/4" colspan="4">Term (Years)</th>
-                <td class="bg-gray-100 py-3 px-6 text-right w-1/4">
-                  <input type="text" ng-model="amort.term" cleave="options.term" placeholder="10" ng-value="10">
+                <th class="bg-gray-100 px-6 text-right w-3/4 py-2" colspan="4">Term</th>
+                <td class="bg-gray-100 px-6 text-right w-1/4 py-2">
+                  <div class="mt-1 flex rounded-md shadow-sm">
+                    <input type="text" ng-model="amort.term" cleave="options.term" ng-value="10" type="text"
+                      class="h-10 focus:outline-none focus:ring-none text-right flex-1 block w-full rounded-none rounded-l-md sm:text-sm border-gray-300 border border-r-0"
+                      placeholder="10">
+                    <span class="inline-flex items-center px-3 rounded-r-md border border-l-0 border-gray-300 bg-white text-gray-500 text-sm">year(s)</span>
+                  </div>
                 </td>
               </tr>
               <tr class="text-gray-600 text-sm leading-normal">
-                <th class="bg-gray-100 py-3 px-6 text-right w-3/4" colspan="4">(Months)</th>
-                <td class="bg-gray-100 py-3 px-6 text-right w-1/4">
-                  {{ amort.term * 12 }}
+                <th class="bg-gray-100 px-6 text-right w-3/4 py-2" colspan="4">Interest rate p.a.</th>
+                <td class="bg-gray-100 px-6 text-right w-1/4 py-2">
+                  <div class="mt-1 flex rounded-md shadow-sm">
+                    <input type="text" ng-model="amort.rate" cleave="options.rate" type="text"
+                      class="h-10 focus:outline-none focus:ring-none text-right flex-1 block w-full rounded-none rounded-l-md sm:text-sm border-gray-300 border border-r-0"
+                      placeholder="5.75">
+                    <span class="inline-flex items-center px-3 rounded-r-md border border-l-0 border-gray-300 bg-white text-gray-500 text-sm">%</span>
+                  </div>
+                </td>
+              </tr>
+              <tr class="text-gray-600 text-sm leading-normal uppercase font-bold">
+                <th class="bg-gray-100 px-6 text-right w-3/4 pt-5" colspan="4">Summary</th>
+                <th class="bg-gray-100 px-6 text-right w-1/4 pt-5"></th>
+              </tr>
+              <tr class="text-gray-600 text-sm leading-normal">
+                <th class="bg-gray-100 px-6 text-right w-3/4 font-normal" colspan="4">Term</th>
+                <td class="bg-gray-100 px-6 text-right w-1/4">
+                  {{ amort.term }} year(s)
+                  ({{ amort.term * 12 }} months)
                 </td>
               </tr>
               <tr class="text-gray-600 text-sm leading-normal">
-                <th class="bg-gray-100 py-3 px-6 text-right w-3/4" colspan="4">Interest rate (per annum)</th>
-                <td class="bg-gray-100 py-3 px-6 text-right w-1/4">
-                  <input class="rate" type="text" ng-model="amort.rate" cleave="options.rate" placeholder="5.75"> %
+                <th class="bg-gray-100 px-6 text-right w-3/4 font-normal" colspan="4">Interest rate p.a.</th>
+                <td class="bg-gray-100 px-6 text-right w-1/4">
+                  {{ amort.rate }} %
                 </td>
               </tr>
               <tr class="text-gray-600 text-sm leading-normal">
-                <th class="bg-gray-100 py-3 px-6 text-right w-3/4" colspan="4">(prorated per month)</th>
-                <td class="bg-gray-100 py-3 px-6 text-right w-1/4">
+                <th class="bg-gray-100 px-6 text-right w-3/4 font-normal" colspan="4">Prorated interest rate per month</th>
+                <td class="bg-gray-100 px-6 text-right w-1/4">
                   {{ amort.rate/12 | number: 2 }} %
                 </td>
               </tr>
               <tr class="text-gray-600 text-sm leading-normal">
-                <th class="bg-gray-100 py-3 px-6 text-right w-3/4" colspan="4">Amortization (monthly)</th>
-                <td class="bg-gray-100 py-3 px-6 text-right w-1/4">
+                <th class="bg-gray-100 px-6 text-right w-3/4 font-normal" colspan="4">Monthly amortization</th>
+                <td class="bg-gray-100 px-6 text-right w-1/4">
                   PhP {{ amort.price | amort: amort.term:amort.rate | number: 2 }}
                 </td>
               </tr>
+              <tr class="text-gray-600 text-sm leading-normal uppercase font-bold">
+                <th class="bg-gray-100 px-6 text-right w-3/4 pt-5" colspan="4"></th>
+                <th class="bg-gray-100 px-6 text-right w-1/4 pt-5"></th>
+              </tr>
               <tr class="text-gray-600 text-sm leading-normal">
-                <th class="bg-gray-100 py-3 px-6 text-right w-3/4" colspan="4">Total gross income</th>
-                <td class="bg-gray-100 py-3 px-6 text-right w-1/4">
+                <th class="bg-gray-100 px-6 text-right w-3/4 font-bold pb-5" colspan="4">Total gross income</th>
+                <td class="bg-gray-100 px-6 text-right w-1/4 pb-5">
                   PhP {{ ((amort.price | amort: amort.term:amort.rate) * ((amort.term * 12) + 1)) | number: 2 }}
                 </td>
               </tr>
@@ -93,6 +130,13 @@
                 </tr>
               </tbody>
             </table>
+
+            <div class="bg-gray-100 pt-2 ">
+               <div class="flex pb-5 px-3 m-auto pt-5 border-t text-gray-800 text-sm flex-col
+                  md:flex-row max-w-6xl">
+                  <div class="mt-2">© Copyright 2018. All Rights Reserved.</div>
+               </div>
+            </div>
 
           </div>
         </div>
