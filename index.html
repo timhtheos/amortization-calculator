@@ -71,10 +71,15 @@
                 <th class="bg-gray-100 px-6 text-right pt-5"></th>
               </tr>
               <tr class="text-gray-600 text-sm leading-normal">
-                <th class="bg-gray-100 px-6 text-right font-normal" colspan="4">Term</th>
+                <th class="bg-gray-100 px-6 text-right font-normal" colspan="4">Term in year(s)</th>
                 <td class="bg-gray-100 px-6 text-right">
                   {{ amort.term }} year(s)
-                  ({{ amort.term * 12 }} months)
+                </td>
+              </tr>
+              <tr class="text-gray-600 text-sm leading-normal">
+                <th class="bg-gray-100 px-6 text-right font-normal" colspan="4">Term in month(s)</th>
+                <td class="bg-gray-100 px-6 text-right">
+                  {{ amort.term * 12 }} month(s)
                 </td>
               </tr>
               <tr class="text-gray-600 text-sm leading-normal">
@@ -98,6 +103,12 @@
               <tr class="text-gray-600 text-sm leading-normal uppercase font-bold">
                 <th class="bg-gray-100 px-6 text-right pt-5" colspan="4"></th>
                 <th class="bg-gray-100 px-6 text-right pt-5"></th>
+              </tr>
+              <tr class="text-gray-600 text-sm leading-normal">
+                <th class="bg-gray-100 px-6 text-right font-bold" colspan="4">Net income</th>
+                <td class="bg-gray-100 px-6 text-right">
+                  PhP {{ ( ((amort.price | amort: amort.term:amort.rate) * ((amort.term * 12) + 1)) - amort.price ) | number: 2 }}
+                </td>
               </tr>
               <tr class="text-gray-600 text-sm leading-normal">
                 <th class="bg-gray-100 px-6 text-right font-bold pb-5" colspan="4">Total gross income</th>
